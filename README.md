@@ -1,6 +1,6 @@
 # ro-vscode README
 
-This is the README for your extension "ro-vscode". After writing up a brief description, we recommend including the following sections.
+对标`ro-cli`功能，实现vscode extension 快捷使用
 
 ## Features
 
@@ -8,15 +8,20 @@ Describe specific features of your extension including screenshots of your exten
 
 For example if there is an image subfolder under your extension project workspace:
 
-\!\[feature X\]\(images/feature-x.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![icon](https://github.com/ronan-try/try-ro-cli/blob/main/ro-cli-vscode-extension/resources/docs/mr-icon.png?raw=true)
+
+![快速发起MR](https://github.com/ronan-try/try-ro-cli/blob/main/ro-cli-vscode-extension/resources/docs/mr-cmd.png?raw=true)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+> 公网第三方包     
+  `shelljs`
+> 个人第三方包      
+  `@ronan/cli-service`
 
 ## Extension Settings
+暂时不支持配置
 
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
@@ -29,11 +34,17 @@ This extension contributes the following settings:
 
 ## Known Issues
 
+https://github.com/ronan-try/try-ro-cli/issues
+
 Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.2
+Refactor: 采用了webpack bundle
+
+### 0.0.1
+初版的MR
 
 ### 1.0.0
 
