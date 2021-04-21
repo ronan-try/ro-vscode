@@ -69,5 +69,14 @@
   },
   "dependencies": {
     "@ronan-try/cli-service": "^1.0.2"
-  }
+  },
+  "repository": {
+		"type": "git",
+		"url": "git+https://github.com/ronan-try/ro-vscod.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ronan-try/ro-vscode/issues"
+	},
+	"homepage": "https://github.com/ronan-try/ro-vscode",
+	"license": "MIT"
 }
