@@ -6,20 +6,38 @@
   "engines": {
     "vscode": "^1.46.0"
   },
+  "icon": "resources/icons/ronan-try.png",
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:ro-vscode.helloWorld"
+    "onCommand:ro-vscode.helloWorld",
+    "onCommand:ro-vscode.mr"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "ro-vscode.helloWorld",
-        "title": "Hello World"
+        "title": "Hello World",
+        "category": "ro"
+      },
+      {
+        "command": "ro-vscode.mr",
+        "title": "Make a MR",
+        "icon": "resources/icons/dark/ro.mr.png",
+        "category": "ro"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "ro-vscode.mr",
+          "group": "navigation",
+          "when": "config.git.enabled && !git.missing && gitOpenRepositoryCount != 0"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -47,5 +65,8 @@
     "vscode-test": "^1.5.0",
     "webpack": "^5.19.0",
     "webpack-cli": "^4.4.0"
+  },
+  "dependencies": {
+    "@ronan-try/cli-service": "^1.0.2"
   }
 }
