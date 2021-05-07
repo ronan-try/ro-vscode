@@ -3,7 +3,7 @@
   "displayName": "ro-vscode",
   "description": "vscode for ro-cli, but not limited",
   "version": "0.0.1",
-	"publisher": "ronantry",
+  "publisher": "ronantry",
   "engines": {
     "vscode": "^1.46.0"
   },
@@ -68,15 +68,15 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "@ronan-try/cli-service": "^1.0.2"
+    "@ronan-try/cli-service": "^1.1.0"
   },
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/ronan-try/ro-vscod.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ronan-try/ro-vscode/issues"
-	},
-	"homepage": "https://github.com/ronan-try/ro-vscode",
-	"license": "MIT"
+    "type": "git",
+    "url": "git+https://github.com/ronan-try/ro-vscod.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ronan-try/ro-vscode/issues"
+  },
+  "homepage": "https://github.com/ronan-try/ro-vscode",
+  "license": "MIT"
 }
