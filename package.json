@@ -13,6 +13,7 @@
   ],
   "activationEvents": [
     "onCommand:ro-vscode.helloWorld",
+    "onCommand:ro-vscode.ui",
     "onCommand:ro-vscode.mr"
   ],
   "main": "./dist/extension.js",
@@ -24,8 +25,13 @@
         "category": "ro"
       },
       {
+        "command": "ro-vscode.ui",
+        "title": "ro ui",
+        "category": "ro"
+      },
+      {
         "command": "ro-vscode.mr",
-        "title": "Make a MR",
+        "title": "Make a MR/ ro mr",
         "icon": "resources/icons/dark/ro.mr.png",
         "category": "ro"
       }
@@ -34,6 +40,11 @@
       "editor/title": [
         {
           "command": "ro-vscode.mr",
+          "group": "navigation",
+          "when": "config.git.enabled && !git.missing && gitOpenRepositoryCount != 0"
+        },
+        {
+          "command": "ro-vscode.ui",
           "group": "navigation",
           "when": "config.git.enabled && !git.missing && gitOpenRepositoryCount != 0"
         }
