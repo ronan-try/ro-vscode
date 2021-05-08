@@ -5,42 +5,42 @@ import commandRegister from './commandRegister';
 import SPAPanel from './webviewPanel/SPAPanel';
 
 export function activate(context: vscode.ExtensionContext) {
-	commandRegister(context);
+  commandRegister(context);
 
-	context.subscriptions.push(
-		vscode.commands.registerCommand('ro-vscode.ui', () => {
-			// SPAPanel.createOrShow(context.extensionUri, context.extensionPath);
-			PPP.show(context.extensionUri);
-		})
-	);
+  context.subscriptions.push(
+    vscode.commands.registerCommand('ro-vscode.ui', () => {
+      // SPAPanel.createOrShow(context.extensionUri, context.extensionPath);
+      PPP.show(context.extensionUri);
+    })
+  );
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 class PPP {
-	public static readonly viewType = 'TRY';
+  public static readonly viewType = 'TRY';
 
-	public static show (extensionUri: vscode.Uri) {
-		const column = vscode.window.activeTextEditor
-			? vscode.window.activeTextEditor.viewColumn
-			: void 0;
+  public static show(extensionUri: vscode.Uri) {
+    const column = vscode.window.activeTextEditor
+      ? vscode.window.activeTextEditor.viewColumn
+      : void 0;
 
-		const panel = vscode.window.createWebviewPanel(
-			PPP.viewType,
-			'try title',
-			column || vscode.ViewColumn.One,
-			{
-				enableScripts: true,
-			}
-		);
+    const panel = vscode.window.createWebviewPanel(
+      PPP.viewType,
+      'try title',
+      column || vscode.ViewColumn.One,
+      {
+        enableScripts: true,
+      }
+    );
 
-		panel.webview.html = this._getHtmlForWebView2(panel.webview, extensionUri);
-	}
+    panel.webview.html = this._getHtmlForWebView(panel.webview, extensionUri);
+  }
 
-	private static _getHtmlForWebView(webview: vscode.Webview, extensionUri: vscode.Uri) {
-		// get resource paths
-		return `
+  private static _getHtmlForWebView(webview: vscode.Webview, extensionUri: vscode.Uri) {
+    // get resource paths
+    return `
 			<!DOCTYPE html>
 			<html lang=zh-CN dir=ltr>
 			<head>
@@ -80,17 +80,26 @@ class PPP {
         },
       });</script><script src=/js/chunk-vendors.2d45ba01.js></script><script src=/js/app.8527e7d9.js></script></body></html>
 		`;
-	}
+  }
 
-	private static _getHtmlForWebView2(webview: vscode.Webview, extensionUri: vscode.Uri) {
-		// get resource paths
-		return `
-		<!DOCTYPE html>
-		<html lang=zh-cn>
-		<head>
-		<base href="https://ronliruonan.github.io/">
-		<meta charset=utf-8>
-		<meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/aya-draglayout/favicon.ico><title>aya-draglayout</title><link href=/aya-draglayout/css/chunk-4d12a612.ce5bf7d7.css rel=prefetch><link href=/aya-draglayout/js/about.6fe3c8de.js rel=prefetch><link href=/aya-draglayout/js/chunk-4d12a612.d1fb0639.js rel=prefetch><link href=/aya-draglayout/css/app.fab2919d.css rel=preload as=style><link href=/aya-draglayout/css/chunk-vendors.f31a5d75.css rel=preload as=style><link href=/aya-draglayout/js/app.25c4d8d8.js rel=preload as=script><link href=/aya-draglayout/js/chunk-vendors.6d58e78c.js rel=preload as=script><link href=/aya-draglayout/css/chunk-vendors.f31a5d75.css rel=stylesheet><link href=/aya-draglayout/css/app.fab2919d.css rel=stylesheet></head><body><noscript><strong>We're sorry but aya doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/aya-draglayout/js/chunk-vendors.6d58e78c.js></script><script src=/aya-draglayout/js/app.25c4d8d8.js></script></body></html>
+  private static _getHtmlForWebView2(webview: vscode.Webview, extensionUri: vscode.Uri) {
+    // get resource paths
+    return `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<base href="http://localhost:3000/">
+    <script type="module" src="/@vite/client"></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
 		`;
-	}
+  }
 }
