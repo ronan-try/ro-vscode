@@ -7,13 +7,14 @@
   "engines": {
     "vscode": "^1.46.0"
   },
-  "icon": "resources/icons/ronan-try.png",
   "categories": [
     "Other"
   ],
   "activationEvents": [
     "onCommand:ro-vscode.helloWorld",
-    "onCommand:ro-vscode.mr"
+    "onCommand:ro-vscode.mr",
+    "onCommand:ro-vscode.start",
+    "onCommand:ro-vscode.doRefactor"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -27,6 +28,16 @@
         "command": "ro-vscode.mr",
         "title": "Make a MR",
         "icon": "resources/icons/dark/ro.mr.png",
+        "category": "ro"
+      },
+      {
+        "command": "ro-vscode.start",
+        "title": "start",
+        "category": "ro"
+      },
+      {
+        "command": "ro-vscode.doRefactor",
+        "title": "dorefactor",
         "category": "ro"
       }
     ],
