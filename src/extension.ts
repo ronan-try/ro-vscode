@@ -1,28 +1,39 @@
 import * as vscode from 'vscode';
 import commandRegister from './commandRegister';
+import RoPanel from './RoPanel';
 
 export function activate(context: vscode.ExtensionContext) {
 	commandRegister(context);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('ro-vscode.start', () => {
-			CatPanel.createOrShow(context.extensionUri);
+			// CatPanel.createOrShow(context.extensionUri);
+			RoPanel.createOrShow(context.extensionUri);
 		})
 	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('ro-vscode.doRefactor', () => {
-			if (CatPanel.currentPanel) {
-				CatPanel.currentPanel.doRefactor();
+			// if (CatPanel.currentPanel) {
+			// 	CatPanel.currentPanel.doRefactor();
+			// }
+			if (RoPanel.currentInstance) {
+				RoPanel.postMesssage();
 			}
 		})
 	);
 
 	if (vscode.window.registerWebviewPanelSerializer) {
-		vscode.window.registerWebviewPanelSerializer(CatPanel.viewType, {
+		// vscode.window.registerWebviewPanelSerializer(CatPanel.viewType, {
+		// 	async deserializeWebviewPanel(webview: vscode.WebviewPanel, state: any) {
+		// 		webview.webview.options = getWebviewOptions(context.extensionUri);
+		// 		CatPanel.revive(webview, context.extensionUri);
+		// 	}
+		// });
+		vscode.window.registerWebviewPanelSerializer(RoPanel.viewType, {
 			async deserializeWebviewPanel(webview: vscode.WebviewPanel, state: any) {
 				webview.webview.options = getWebviewOptions(context.extensionUri);
-				CatPanel.revive(webview, context.extensionUri);
+				RoPanel.revive(webview, context.extensionUri);
 			}
 		});
 	}
