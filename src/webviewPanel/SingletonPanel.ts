@@ -37,7 +37,11 @@ export default class SingletonPanel {
     SingletonPanel.currentInstance = new SingletonPanel(panel, extensionUri);
   }
 
-  public static postMessage(message: PostedMessage) {
+  public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
+    SingletonPanel.currentInstance = new SingletonPanel(panel, extensionUri);
+  }
+
+  public static postMessage(message: PostedMessage ) {
     if (!SingletonPanel.currentInstance) {
       vscode.window.showErrorMessage('当前没有SingletonPanel实例');
       return;
@@ -45,14 +49,11 @@ export default class SingletonPanel {
     SingletonPanel.currentInstance._panel.webview.postMessage(message);
   }
 
-  // ????? 不对吧
-  public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
-    SingletonPanel.currentInstance = new SingletonPanel(panel, extensionUri);
-  }
-
   private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
     this._panel = panel;
     this._extensionUri = extensionUri;
+
+    this._update();
 
     // Listen
     this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
@@ -73,7 +74,7 @@ export default class SingletonPanel {
           case 'alert':
             vscode.window.showInformationMessage(message.text);
             break;
-        
+
           default:
             break;
         }
@@ -106,14 +107,14 @@ export default class SingletonPanel {
   private _update() {
     switch (this._panel.viewColumn) {
       case vscode.ViewColumn.Two:
-        this._updateHtml('cat1');
+        this._updateHtml('cat1.webp');
         break;
       case vscode.ViewColumn.Three:
         this._updateHtml('cat2');
         break;
       case vscode.ViewColumn.One:
       default:
-        this._updateHtml('cat3');
+        this._updateHtml('cat3.webp');
         break;
     }
   }
@@ -140,7 +141,7 @@ export default class SingletonPanel {
 
           <link href="${stylesUri}" rel="stylesheet">
 
-          <titile>ro-ui</title>
+          <title>ro-ui</title>
         </head>
         <body>
           <img src="${imgUri}" width="300" />
@@ -152,6 +153,8 @@ export default class SingletonPanel {
       </html>
     `;
   }
+
+  public static getWebviewOptions = getWebviewOptions;
 }
 
 function getNonce() {
