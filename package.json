@@ -7,7 +7,7 @@
   "engines": {
     "vscode": "^1.46.0"
   },
-  "icon": "https://smsimg.ziroom.com/44059850-bb37-461c-aabe-5b9061b84134.png",
+  "icon": "https://thumbnail0.baidupcs.com/thumbnail/877d6c930rfe4eddee7a1a5a3d86e164?fid=3407928918-250528-542425907987918&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-clG7M4Jt%2fAHjqPu%2fzlLfJ9MfeAg%3d&expires=8h&chkbd=0&chkv=0&dp-logid=8864308675482619724&dp-callid=0&time=1620975600&size=c1920_u1080&quality=90&vuk=3407928918&ft=image&autopolicy=1",
   "categories": [
     "Other"
   ],
@@ -26,7 +26,7 @@
       },
       {
         "command": "ro-vscode.ui",
-        "title": "ro ui",
+        "title": "RoUI",
         "category": "ro"
       },
       {

@@ -59,3 +59,12 @@ h1 {
 	font-size: 32px;
 	padding-bottom: 16px;
 }
+
+.tools_board {
+	display: flex;
+	padding: 20px;
+}
+.tools_board-btn {
+	flex: 1;
+	padding: 10px;
+}

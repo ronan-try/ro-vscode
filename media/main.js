@@ -24,7 +24,21 @@
                 text: '🐛  on line ' + currentCount
             });
         }
-    }, 100);
+    }, 1000 * 1);
+
+    {
+        const elBtn = document.getElementById('ro_mr');
+        elBtn.addEventListener('click', () => {
+            vscode.postMessage({
+                command: 'alert',
+                text: '💩 ro mr',
+            });
+            vscode.postMessage({
+                command: 'ro_mr',
+                text: 'good luck'
+            });
+        });
+    }
 
     // Handle messages sent from the extension to the webview
     window.addEventListener('message', event => {

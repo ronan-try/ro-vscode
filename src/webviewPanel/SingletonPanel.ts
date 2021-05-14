@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import commandHandler from '../lib/mr';
 
 type PostedMessage = {
   command: string
@@ -75,6 +76,9 @@ export default class SingletonPanel {
             vscode.window.showInformationMessage(message.text);
             break;
 
+          case 'ro_mr':
+            commandHandler();
+            break;
           default:
             break;
         }
@@ -144,6 +148,10 @@ export default class SingletonPanel {
           <title>ro-ui</title>
         </head>
         <body>
+          <div class="tools_board">
+            <button id="ro_mr" class="tools_board-btn">Mr</button>
+            <button class="tools_board-btn">Fork</button>
+          </div>
           <img src="${imgUri}" width="300" />
 
           <h1 id="lines-of-code-counter">0</h1>
