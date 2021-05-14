@@ -4,6 +4,9 @@
 
 ## Features
 
+// 2021-5-14
+新增webview，可以在view面板进行发布
+
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
 For example if there is an image subfolder under your extension project workspace:
