@@ -124,7 +124,7 @@ export default class SingletonPanel {
   }
 
   private _updateHtml(catName: string) {
-    this._panel.title = catName;
+    this._panel.title = 'RoUI-' + catName;
     this._panel.webview.html = this._getHtmlForWebview(this._panel.webview, catName);
   }
 
