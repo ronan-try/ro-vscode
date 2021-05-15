@@ -7,6 +7,11 @@ export default defineConfig({
   define: {
     'process.env': {}
   },
+  resolve: {
+    alias: {
+      '@/(.*)$': '<rootDir>/src/components/$1'
+    }
+  },
   plugins: [
     vue(),
     styleImport({

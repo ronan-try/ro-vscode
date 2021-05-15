@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HelloWorld from '../views/HelloWorld.vue';
 
 export const routes: Array<RouteRecordRaw> = [
@@ -33,9 +33,12 @@ export const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
+  // history
   // history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHistory(process.env.BASE_URL),
+  // history: createWebHistory(process.env.BASE_URL),
   // history: createWebHistory(),
+  // hash
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 
