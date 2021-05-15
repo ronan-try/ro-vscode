@@ -1,11 +1,14 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HelloWorld from '../views/HelloWorld.vue';
+import GitFlow from '../views/GitFlow/index.vue';
+
+import { markRaw } from 'vue'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'HelloWorld',
-    component: HelloWorld,
+    component: markRaw(HelloWorld),
   },
   // {
   //   path: '/projects',
@@ -28,17 +31,18 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/gitflow',
     name: 'GitFlow',
-    component: () => import('../views/GitFlow/index.vue'),
+    component: markRaw(GitFlow),
+    // component: () => import(/* webpackChunkName: "gitflow" */ '../views/GitFlow/index.vue'),
   },
 ];
 
 const router = createRouter({
   // history
   // history: createWebHistory(import.meta.env.BASE_URL),
-  // history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL),
   // history: createWebHistory(),
-  // hash
-  history: createWebHashHistory(process.env.BASE_URL),
+  // // hash
+  // history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 

@@ -140,18 +140,28 @@ export default class SingletonPanel {
       <html>
         <head>
           <meta charset="UTF-8">
-          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource} https; script-src 'nonce-${nonce}';">
           <meta name="viewport" content="with=device-width, initial-scale=1.0">
+
+          <meta
+            http-equiv="Content-Security-Policy"
+            content="
+              default-src none;
+              style-src ${webview.cspSource} http://localhost:3000/ 'unsafe-inline';
+              img-src ${webview.cspSource} https http://localhost:3000/;
+              script-src 'nonce-${nonce}' http://localhost:3000/;
+            "
+          >
 
           <link href="${stylesUri}" rel="stylesheet">
 
           <title>ro-ui</title>
+          <script type="module" src="http://localhost:3000/@vite/client"></script>
         </head>
         <body>
-          <div class="tools_board">
-            <button id="ro_mr" class="tools_board-btn">Mr</button>
-            <button class="tools_board-btn">Fork</button>
-          </div>
+          <div id="app"></div>
+          <script type="module" src="http://localhost:3000/src/main.ts"></script>
+
+          <h1>${webview.cspSource}</h1>
           <img src="${imgUri}" width="300" />
 
           <h1 id="lines-of-code-counter">0</h1>

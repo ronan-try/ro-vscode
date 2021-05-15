@@ -2,18 +2,18 @@
   <el-container id="nav">
     <el-header class="rocli-header">
       <i class="el-icon-timer" /> Ro-CLI
-      <div style="position:absolute; left:200px;top:0;">
-        <router-link
-          v-for="link of links"
-          :key="link.path"
-          :to="link.path"
-        >
-          {{ link.name }} - | -
-        </router-link>
-      </div>
     </el-header>
     <el-main>
-      <router-view />
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane
+          v-for="link of links"
+          :key="link.path"
+          :name="link.path"
+          :label="link.name"
+        >
+          <component :is="link.component" />
+        </el-tab-pane>
+      </el-tabs>
     </el-main>
   </el-container>
 </template>
@@ -21,14 +21,19 @@
 <script>
 import { routes } from './router'
 
-
 export default {
   name: 'App',
   data() {
     return {
       links: routes,
+      activeName: '/',
     };
   },
+  methods: {
+    handleClick () {
+      
+    },
+  }
 };
 </script>
 
