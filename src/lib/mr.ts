@@ -19,13 +19,19 @@ export default async () => {
   const gitLocalOriginUri = await gitLocalOriginURI(rootPath);
   const gitLocalBranchName = await gitBranchCurrent(rootPath);
 
-  const url =
+  let url =
     `${gitLocalOriginUri}`
       .replace('.com:', '.com/')
       .replace('git@', 'https://')
       .replace('.git', '/merge_requests/new?')
     + 'merge_request%5Bsource_branch%5D='
     + gitLocalBranchName;
+
+  if (gitLocalOriginUri.includes('github.com')) {
+    url = `${gitLocalOriginUri}`.replace('.git', '/compare/main...' + gitLocalOriginUri.replace('https://github.com/', '').replace(/(\/(\S*))/, '') + ':' + gitLocalBranchName);
+  } else if (gitLocalOriginUri.includes('gitee.com')) {
+    url = `${gitLocalOriginUri}`.replace('.git', '/compare/main...' + gitLocalOriginUri.replace('https://gitee.com/', '').replace(/(\/(\S*))/, '') + ':' + gitLocalBranchName);
+  }
 
   vscode.env.openExternal(vscode.Uri.parse(url));
   alertInfo('the browser should be opened');
