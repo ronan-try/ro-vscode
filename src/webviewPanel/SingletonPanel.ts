@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import commandHandler from '../lib/mr';
+import gitforkHandler from '../lib/gitfork';
+import * as WS_MESSAGE_TYPE from '@ronan-try/cli-const/src/wsMessageType';
 
 type PostedMessage = {
   command: string
@@ -74,6 +76,10 @@ export default class SingletonPanel {
         switch (message.command) {
           case 'alert':
             vscode.window.showInformationMessage(message.text);
+            break;
+
+          case WS_MESSAGE_TYPE.ADD_TARGET_UPSTREAM:
+            gitforkHandler();
             break;
 
           case 'ro_mr':
@@ -161,9 +167,8 @@ export default class SingletonPanel {
           <div id="app"></div>
           <script type="module" src="http://localhost:3000/src/main.ts"></script>
 
-          <h1>${webview.cspSource}</h1>
           <img src="${imgUri}" width="300" />
-
+          <h1>${webview.cspSource}</h1>
           <h1 id="lines-of-code-counter">0</h1>
 
           <script nonce="${nonce}" src="${mainjsUri}"></script>

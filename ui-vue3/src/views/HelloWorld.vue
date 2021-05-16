@@ -1,35 +1,46 @@
 <template>
   <div class="tools_board">
-    <el-button id="ro_mr" class="tools_board-btn" @click="onClickMr"
-      >Mr？</el-button
+    <el-button
+      class="tools_board-btn"
+      @click="onClickMr"
     >
-    <el-button class="tools_board-btn">Fork？？</el-button>
+      Make a mr / pr
+    </el-button>
+    <el-button
+      class="tools_board-btn"
+      @click="onClickFork"
+    >
+      Fork？？
+    </el-button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-interface vscode {
-  postMessage(message: any): void;
-}
-// // declare const vscode: vscode;
-
-declare let acquireVsCodeApi: Function;
+import vscodePostMessage from '../composables/vscodePostMessage';
 
 export default defineComponent({
   name: "HelloWorld",
-  props: {
-    msg: String,
-  },
-  methods: {
-    onClickMr() {
-      const vscode = acquireVsCodeApi() as vscode;
-      vscode.postMessage({
+  setup () {
+    const onClickMr = () => {
+      vscodePostMessage({
         command: "ro_mr",
         text: "good luck",
-      });
-    },
+      })
+    }
+
+    const onClickFork = () => {
+      vscodePostMessage({
+        command: "alert",
+        text: "good luck",
+      })
+    }
+
+    return {
+      onClickMr,
+      onClickFork,
+    }
   },
 });
 </script>

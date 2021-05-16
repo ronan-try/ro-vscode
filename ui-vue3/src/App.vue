@@ -4,7 +4,7 @@
       <i class="el-icon-timer" /> Ro-CLI
     </el-header>
     <el-main>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane
           v-for="link of links"
           :key="link.path"
@@ -29,11 +29,6 @@ export default {
       activeName: '/',
     };
   },
-  methods: {
-    handleClick () {
-      
-    },
-  }
 };
 </script>
 
