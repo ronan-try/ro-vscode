@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import commandHandler from '../lib/mr';
 import gitforkHandler from '../lib/gitfork';
+import demoHandler from '../lib/demo';
 import * as WS_MESSAGE_TYPE from '@ronan-try/cli-const/src/wsMessageType';
 
 type PostedMessage = {
@@ -74,6 +75,16 @@ export default class SingletonPanel {
     this._panel.webview.onDidReceiveMessage(
       (message: PostedMessage) => {
         switch (message.command) {
+          case 'demo':
+            demoHandler();
+            break;
+          case 'demo-start':
+            demoHandler('start');
+            break;
+          case 'demo-stop':
+            demoHandler('stop');
+            break;
+
           case 'alert':
             vscode.window.showInformationMessage(message.text);
             break;

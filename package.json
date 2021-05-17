@@ -81,7 +81,8 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "@ronan-try/cli-service": "^1.1.0"
+    "@ronan-try/cli-service": "^1.1.0",
+    "@ronan-try/cli-shared-utils": "^1.1.0"
   },
   "repository": {
     "type": "git",
