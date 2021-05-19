@@ -146,6 +146,11 @@ export default class SingletonPanel {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview, catName: string) {
+    const vueCss = this.translateDiskUri(webview, 'dist-ui/assets', 'index.29d1ea5f.css');
+    const vueIndex = this.translateDiskUri(webview, 'dist-ui/assets', 'index.828c0e49.js');
+    const vueVendor = this.translateDiskUri(webview, 'dist-ui/assets', 'vendor.22eb44ac.js');
+    // const vueWoff = this.translateDiskUri(webview, 'dist-ui/assets', 'element-icons.9c88a535.woff');
+
     const stylesUri = this.translateDiskUri(webview, 'media', 'styles.css');
     const mainjsUri = this.translateDiskUri(webview, 'media', 'main.js');
 
@@ -170,19 +175,22 @@ export default class SingletonPanel {
           >
 
           <link href="${stylesUri}" rel="stylesheet">
+          <link href="${vueCss}" rel="stylesheet">
 
           <title>ro-ui</title>
-          <script type="module" src="http://localhost:3000/@vite/client"></script>
         </head>
         <body>
+          <h1>💥 Ro-X</h1>
           <div id="app"></div>
-          <script type="module" src="http://localhost:3000/src/main.ts"></script>
 
           <img src="${imgUri}" width="300" />
           <h1>${webview.cspSource}</h1>
           <h1 id="lines-of-code-counter">0</h1>
 
           <script nonce="${nonce}" src="${mainjsUri}"></script>
+          <script type="module" nonce="${nonce}" src="${vueIndex}"></script>
+          <script type="module" nonce="${nonce}" src="${vueVendor}"></script>
+
         </body>
       </html>
     `;
@@ -204,7 +212,7 @@ function getNonce() {
 function getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
   return {
     enableScripts: true,
-    localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')],
+    localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media'), vscode.Uri.joinPath(extensionUri, 'dist-ui')],
   };
 }
 
