@@ -4,12 +4,13 @@ import RoPanel from '../webviewPanel/DemoPanel';
 
 const command = (context: vscode.ExtensionContext) => {
 
-	vscode.window.registerWebviewPanelSerializer(SingletonPanel.viewType, {
-		async deserializeWebviewPanel(panel: vscode.WebviewPanel, state: any) {
-			panel.webview.options = SingletonPanel.getWebviewOptions(context.extensionUri);
-			SingletonPanel.revive(panel, context.extensionUri);
-		}
-	});
+	// note: registerWebviewPanelSerializer() 可以保证vscode重新启动时，保持原有的打开状态
+	// vscode.window.registerWebviewPanelSerializer(SingletonPanel.viewType, {
+	// 	async deserializeWebviewPanel(panel: vscode.WebviewPanel, state: any) {
+	// 		panel.webview.options = SingletonPanel.getWebviewOptions(context.extensionUri);
+	// 		SingletonPanel.revive(panel, context.extensionUri);
+	// 	}
+	// });
 
   return vscode.commands.registerCommand('ro-vscode.ui', async () => {
     SingletonPanel.creatOrShow(context.extensionUri);
