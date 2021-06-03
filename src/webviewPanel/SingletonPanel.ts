@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
 import commandHandler from '../lib/mr';
+import gitforkHandler from '../lib/gitfork';
+import demoHandler from '../lib/demo';
+import * as WS_MESSAGE_TYPE from '@ronan-try/cli-const/src/wsMessageType';
 
 type PostedMessage = {
   command: string
@@ -72,8 +75,22 @@ export default class SingletonPanel {
     this._panel.webview.onDidReceiveMessage(
       (message: PostedMessage) => {
         switch (message.command) {
+          case 'demo':
+            demoHandler();
+            break;
+          case 'demo-start':
+            demoHandler('start');
+            break;
+          case 'demo-stop':
+            demoHandler('stop');
+            break;
+
           case 'alert':
             vscode.window.showInformationMessage(message.text);
+            break;
+
+          case WS_MESSAGE_TYPE.ADD_TARGET_UPSTREAM:
+            gitforkHandler();
             break;
 
           case 'ro_mr':
@@ -129,6 +146,8 @@ export default class SingletonPanel {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview, catName: string) {
+    // const vueWoff = this.translateDiskUri(webview, 'dist-ui/assets', 'element-icons.9c88a535.woff');
+
     const stylesUri = this.translateDiskUri(webview, 'media', 'styles.css');
     const mainjsUri = this.translateDiskUri(webview, 'media', 'main.js');
 
@@ -136,27 +155,58 @@ export default class SingletonPanel {
 
     const nonce = getNonce();
 
+    let scripts = '';
+    scripts = ((fileNames = []) => {
+      let str = '';
+      fileNames.forEach(filename => {
+        const src = this.translateDiskUri(webview, 'dist-ui/assets', filename);
+        str = str + ` <script type="module" nonce="${nonce}" src="${src}"></script>`;
+      });
+      return str;
+    })(['index.89a4185f.js', 'vendor.22eb44ac.js']);
+
+    let styles = '';
+    styles = ((fileNames = []) => {
+      let str = '';
+      fileNames.forEach(filename => {
+        const src = this.translateDiskUri(webview, 'dist-ui/assets', filename);
+        str = str + ` <link href="${src}" rel="stylesheet">`;
+      });
+      return str;
+    })(['index.eef1bd22.css']);
+
+
     return `<!DOCTYPE html>
       <html>
         <head>
           <meta charset="UTF-8">
-          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource} https; script-src 'nonce-${nonce}';">
           <meta name="viewport" content="with=device-width, initial-scale=1.0">
 
-          <link href="${stylesUri}" rel="stylesheet">
+          <meta
+            http-equiv="Content-Security-Policy"
+            content="
+              default-src none;
+              style-src ${webview.cspSource} http://localhost:3000/ 'unsafe-inline';
+              img-src ${webview.cspSource} https http://localhost:3000/;
+              script-src 'nonce-${nonce}' http://localhost:3000/;
+            "
+          >
 
+          ${styles}
+          <link href="${stylesUri}" rel="stylesheet">
           <title>ro-ui</title>
+          <!---->
+          <!--<script type="module" src="http://localhost:3000/@vite/client"></script>-->
         </head>
         <body>
-          <div class="tools_board">
-            <button id="ro_mr" class="tools_board-btn">Mr</button>
-            <button class="tools_board-btn">Fork</button>
-          </div>
-          <img src="${imgUri}" width="300" />
+          <div id="app">will be overwrite</div>
 
+          <img src="${imgUri}" width="300" />
           <h1 id="lines-of-code-counter">0</h1>
 
           <script nonce="${nonce}" src="${mainjsUri}"></script>
+          <!--<script type="module" src="http://localhost:3000/src/main.ts"></script>-->
+          ${scripts}
         </body>
       </html>
     `;
@@ -178,7 +228,7 @@ function getNonce() {
 function getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
   return {
     enableScripts: true,
-    localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')],
+    localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media'), vscode.Uri.joinPath(extensionUri, 'dist-ui')],
   };
 }
 
