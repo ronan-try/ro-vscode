@@ -2,7 +2,7 @@
   "name": "ro-vscode",
   "displayName": "ro-vscode",
   "description": "vscode for ro-cli, but not limited",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "ronantry",
   "engines": {
     "vscode": "^1.46.0"
