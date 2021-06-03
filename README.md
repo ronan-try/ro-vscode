@@ -4,6 +4,9 @@
 
 ## Features
 
+// 2021-06-03
+支持Window下的Nginx的配置、启动、关闭
+
 // 2021-5-14
 新增webview，可以在view面板进行发布
 
