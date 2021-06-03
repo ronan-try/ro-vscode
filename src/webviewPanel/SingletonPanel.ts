@@ -146,9 +146,6 @@ export default class SingletonPanel {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview, catName: string) {
-    const vueCss = this.translateDiskUri(webview, 'dist-ui/assets', 'index.29d1ea5f.css');
-    const vueIndex = this.translateDiskUri(webview, 'dist-ui/assets', 'index.828c0e49.js');
-    const vueVendor = this.translateDiskUri(webview, 'dist-ui/assets', 'vendor.22eb44ac.js');
     // const vueWoff = this.translateDiskUri(webview, 'dist-ui/assets', 'element-icons.9c88a535.woff');
 
     const stylesUri = this.translateDiskUri(webview, 'media', 'styles.css');
@@ -157,6 +154,27 @@ export default class SingletonPanel {
     const imgUri = this.translateDiskUri(webview, 'media', catName);
 
     const nonce = getNonce();
+
+    let scripts = '';
+    scripts = ((fileNames = []) => {
+      let str = '';
+      fileNames.forEach(filename => {
+        const src = this.translateDiskUri(webview, 'dist-ui/assets', filename);
+        str = str + ` <script type="module" nonce="${nonce}" src="${src}"></script>`;
+      });
+      return str;
+    })(['index.89a4185f.js', 'vendor.22eb44ac.js']);
+
+    let styles = '';
+    styles = ((fileNames = []) => {
+      let str = '';
+      fileNames.forEach(filename => {
+        const src = this.translateDiskUri(webview, 'dist-ui/assets', filename);
+        str = str + ` <link href="${src}" rel="stylesheet">`;
+      });
+      return str;
+    })(['index.eef1bd22.css']);
+
 
     return `<!DOCTYPE html>
       <html>
@@ -174,23 +192,21 @@ export default class SingletonPanel {
             "
           >
 
+          ${styles}
           <link href="${stylesUri}" rel="stylesheet">
-          <link href="${vueCss}" rel="stylesheet">
-
           <title>ro-ui</title>
+          <!---->
+          <!--<script type="module" src="http://localhost:3000/@vite/client"></script>-->
         </head>
         <body>
-          <h1>💥 Ro-X</h1>
-          <div id="app"></div>
+          <div id="app">will be overwrite</div>
 
           <img src="${imgUri}" width="300" />
-          <h1>${webview.cspSource}</h1>
           <h1 id="lines-of-code-counter">0</h1>
 
           <script nonce="${nonce}" src="${mainjsUri}"></script>
-          <script type="module" nonce="${nonce}" src="${vueIndex}"></script>
-          <script type="module" nonce="${nonce}" src="${vueVendor}"></script>
-
+          <!--<script type="module" src="http://localhost:3000/src/main.ts"></script>-->
+          ${scripts}
         </body>
       </html>
     `;
