@@ -4,6 +4,7 @@ import RoPanel from '../webviewPanel/DemoPanel';
 
 const command = (context: vscode.ExtensionContext) => {
 
+  // note: registerWebviewPanelSerializer() 可以保证vscode重新启动时，保持原有的打开状态
 	// vscode.window.registerWebviewPanelSerializer(SingletonPanel.viewType, {
 	// 	async deserializeWebviewPanel(panel: vscode.WebviewPanel, state: any) {
 	// 		panel.webview.options = SingletonPanel.getWebviewOptions(context.extensionUri);
